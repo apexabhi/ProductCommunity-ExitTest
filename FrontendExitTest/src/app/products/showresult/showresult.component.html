@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="text-center col-10">
+        <h1>Search Results</h1>
+    </div>
+    <div class="col-2" *ngIf="isLogIn">
+        <strong> Welcome {{cuser.firstName}}</strong>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-sm-12 col-xs-12 my-4">
+            <div class="card ">
+                <div class="card-body">
+                    <h5 class="f-title m-1">Filter:</h5><br />
+                    <form class="f-form">
+                        <div>
+                            <span class="f-name"><b>Brand</b></span><br>
+                            <select [(value)]="selectedBrand" [(ngModel)]="selectedBrand" (ngModelChange)="onSelectedBrand($event)" class="m-1" name="brand" id="brand">
+                                <option value="all">All brands</option>
+                                <option *ngFor="let brandName of productBrands">{{ brandName }}</option>
+                            </select>
+                        </div><br />
+                    </form>
+                    <form [formGroup]="priceFilterForm" class="f-form" *ngIf="isLogIn">
+                        <div>
+                            <span class="f-name"><b>Price</b></span><br>
+                            <input type="number" formControlName="minPrice" class="input m-1" placeholder="Min" min="1">
+                            <input type="number" formControlName="maxPrice" class="input m-1"  placeholder="Max" min="1">
+                            <span style="color: red" *ngIf="isValid">
+                                Min price range must be smaller than max price range<br> 
+                            </span>
+                            <span style="color: red" *ngIf="isEmpty">
+                                <br> Fields can't be empty
+                            </span>
+                            <button type="submit" (click)="filterPrice()" class="f-btn my-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-12 col-xs-12">
+            <div *ngIf="isNoProducts">
+                <h1 class="text-center np">No products available</h1>
+            </div>
+            <div class="row m-1 products" >
+                <div class="col-md-3 my-2" *ngFor="let data of allProducts">
+                    <div class="card m-2 showprod">
+                        <div class="prodimg">
+                            <img src="data:image/png;base64,{{data.image}}" class="card-img-top" alt="..." weight="100" height="150">
+                        </div>
+                        <div class="card-body prodinfo">
+                            <h5 class="text-center pname"><u>{{data.name}}</u></h5>
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-12 mt-4">
+                                    <h6 class="pprice">${{data.price}}</h6>
+                                </div>
+                                <div class="col-xl-7 col-lg-12">
+                                    <button routerLink="/productdetail/{{data.productCode}}" *ngIf="isLogIn" class="details mt-3">DETAILS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+    </div>

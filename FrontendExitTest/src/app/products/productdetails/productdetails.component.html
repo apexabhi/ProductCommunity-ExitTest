@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="row">
+      <div class="text-center col-10">
+      </div>
+      <div class="col-2" *ngIf="isLogIn">
+          <strong> Welcome {{cuser.firstName}}</strong>
+      </div>
+    </div>    
+    <div class = "card-wrapper">
+      <div class = "card">
+        <!-- card left -->
+        <div class = "product-imgs" *ngIf="detail">
+              <img src="data:image/png;base64,{{detail.image}}" alt="No preview available">
+        </div>
+        <!-- card right -->
+        <div class = "product-content" *ngIf="detail">
+          <h2 class = "product-title">{{detail.name}}</h2>
+          <a href = "#" class = "product-link">visit store</a>
+
+          <div class = "product-price">
+            <p class = "new-price">Price: <span>${{detail.price}}</span></p>
+          </div>
+
+          <div class = "product-detail">
+            <h2>about this item: </h2>
+            <p>{{detail.description}}</p>
+            <ul>
+              <li>Brand: <span>{{detail.brand}}</span></li>
+              <li>Product Code: <span>{{detail.productCode}}</span></li>
+            </ul>
+          </div>
+          <div class="checkDelivery">
+            <form [formGroup]="checkForm" ngNativeValidate>
+              <div class="my-3">
+                <label for="dtext">Check delivery:</label>
+                <div class="row pincode">
+                  <div class="col-7">
+                    <input type="number" formControlName="dtext" class="form-control" placeholder="Enter the pincode here" id="name" required>
+                  </div>
+                  <div class="col-1"></div>
+                  <div class="col-3">
+                    <button type="submit" (click)="checkDelivery(detail.productCode)" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                      <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                    </svg></button>
+                  </div>
+                </div>
+                <div *ngIf="isDeliverable > 0">
+                  <span *ngIf="isDeliverable === 1" style="color: green">
+                      Expected Delivery by {{expectedtime | date: "longDate" }}
+                  </span>
+                  <span *ngIf="isDeliverable === 2" style="color: red">
+                      Not Deliverable to entered location!!
+                  </span>
+                  <span *ngIf="isDeliverable === 3" style="color: yellow">
+                      Enter your pincode to check deliverablitiy!
+                  </span>
+              </div>
+              </div>
+    
+            </form>
+          </div>
+
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

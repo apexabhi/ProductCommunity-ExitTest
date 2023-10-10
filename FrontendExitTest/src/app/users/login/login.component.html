@@ -1,0 +1,30 @@
+<div class="col-12">
+    <div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Logged In Successfully!</strong>
+        <button (click)="closeSuccessAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div *ngIf="failureAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Failed!</strong> Invalid Credentials entered!!
+        <button (click)="closeFailureAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<div class="container-fluid col-md-4 p-5 lform">
+    <h1>Login here!!!</h1>
+    <hr>
+    <form [formGroup]="loginForm" (ngSubmit)="logIn()" ngNativeValidate>
+        <div class="my-3">
+            <label for="userid" class="form-label ">Email*</label>
+            <input type="text" class="form-control" formControlName="userid" id="userid" placeholder="Enter your email id here" required>
+        </div>
+        <div class="my-3">
+            <label for="pwd" class="form-label">Password*</label>
+            <input type="password" class="form-control" formControlName="pwd" id="pwd"placeholder="Enter your password here" required>
+        </div>
+        <button type="submit" class="btn text-white my-3"><strong>Login</strong></button>
+        <span><a href="/register" class="mx-4"><strong> New User?</strong></a></span>
+    </form>
+</div>

@@ -1,0 +1,101 @@
+<div class="container">
+    <form [formGroup]="signupForm" ngNativeValidate  (ngSubmit)="signUp()">
+    <div class="row">
+        <h1 class="text-center head">Registration</h1>
+        <hr>
+        <div class="col-12">
+            <div *ngIf="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Registration successful!!</strong>
+                <button (click)="closeSuccessAlert()" type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="failureAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>User already Exist!!</strong>
+                <button (click)="closeFailureAlert()" type="button" class="close" data-dismiss="alert"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12"></div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col">
+                    <input class="inp" type="email" formControlName="email" placeholder="Email *" required />
+                    <span style="color: red"
+                        *ngIf="func['email'] && func['email'].invalid && func['email'].touched">
+                        Invalid Email!
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <input class="inp" type="text" formControlName="firstname" placeholder="First name *" required />
+                    <span style="color: red"
+                    *ngIf="func['firstname'] && func['firstname'].invalid && func['firstname'].touched">
+                    Invalid Firstname!
+                </span>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <input class="inp" type="text" formControlName="lastname" placeholder="Last name *" required />
+                    <span style="color: red"
+                        *ngIf="func['lastname'] && func['lastname'].invalid && func['lastname'].touched">
+                        Invalid Lastname!
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <input class="inp" type="password" name="pwd1" formControlName="password" placeholder="Password *" required />
+                    <span style="color: red"
+                        *ngIf="func['password'] && func['password'].invalid && func['password'].touched">
+                        Password must have atleast: <br />
+                        4 characters, a lowercase letter, <br />
+                        an uppercase letter, a digit, <br />
+                        and a special symbol.
+                    </span>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <input class="inp" type="password" name="pwd2" formControlName="password2" placeholder="Confirm password *"
+                        required />
+                    <div *ngIf="func['password2'] && func['password2'].invalid && func['password2'].touched">
+                        <span style="color: red" *ngIf="func['password2'].errors?.['required']">
+                            Confirm Password is Required!
+                        </span>
+                    </div>
+                </div>
+                <span style="color: red" *ngIf="func['password2'].errors?.['confirmedValidator']">
+                    Password and Confirm Password must be same!
+                </span>
+            </div>
+            <div class="row">
+                <div class="col">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12"></div>
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <button type="submit" class="btn btn-submit" [disabled]="func['password2'].errors?.['confirmedValidator']">Submit</button>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <a routerLink="/login">Existing User?</a>
+        </div>    
+    </div>
+
+</form>
+</div>
